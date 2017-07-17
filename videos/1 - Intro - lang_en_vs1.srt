@@ -1,0 +1,123 @@
+1
+00:00:00,720 --> 00:00:04,590
+Congratulations on mastering
+the extended Kalman Filter.
+
+2
+00:00:04,590 --> 00:00:07,760
+With this, you can solve a lot of
+problems related to advanced driver
+
+3
+00:00:07,760 --> 00:00:10,860
+assistance systems and
+self-driving cars.
+
+4
+00:00:10,860 --> 00:00:14,518
+&gt;&gt; Absolutely, if you look into
+the code of a car and cruise control
+
+5
+00:00:14,518 --> 00:00:19,356
+system with automatic distance keeping,
+you will find an Extended Kalman Filter.
+
+6
+00:00:19,356 --> 00:00:21,939
+&gt;&gt; There is also another
+technique gaining more and
+
+7
+00:00:21,939 --> 00:00:24,150
+more attention in this field.
+
+8
+00:00:24,150 --> 00:00:27,849
+It is called
+the Unscented Kalman Filter or UKF.
+
+9
+00:00:27,849 --> 00:00:30,799
+And you can achieve even
+better results with it.
+
+10
+00:00:30,799 --> 00:00:35,579
+The UKF is an alternative technique
+to deal norming your process models,
+
+11
+00:00:35,579 --> 00:00:37,920
+or nonlinear measurement models.
+
+12
+00:00:37,920 --> 00:00:42,430
+But instead of linearizing a nonlinear
+function, the UKF uses so-called
+
+13
+00:00:42,430 --> 00:00:46,300
+sigma points to approximate
+the probability distribution.
+
+14
+00:00:46,300 --> 00:00:48,530
+&gt;&gt; This has two advantages.
+
+15
+00:00:48,530 --> 00:00:51,870
+In many cases the sigma points
+approximate the nonlinear transition
+
+16
+00:00:51,870 --> 00:00:54,210
+better than a linearization does.
+
+17
+00:00:54,210 --> 00:00:58,420
+Also it is not necessary to
+calculate Jacobian matrix.
+
+18
+00:00:58,420 --> 00:01:00,660
+&gt;&gt; What are students are going
+to learn in the lesson?
+
+19
+00:01:00,660 --> 00:01:02,900
+&gt;&gt; This lesson has three parts.
+
+20
+00:01:02,900 --> 00:01:05,940
+First I will introduce a more
+sophisticated process model
+
+21
+00:01:05,940 --> 00:01:08,740
+that is able to estimate
+the turn rate of a.
+
+22
+00:01:08,740 --> 00:01:11,390
+Then I will show you how
+the Unscented Kalman Filter
+
+23
+00:01:11,390 --> 00:01:13,650
+deals with this nonlinear process model.
+
+24
+00:01:13,650 --> 00:01:18,020
+Finally, we will implement the filter
+together step by step in C++, and
+
+25
+00:01:18,020 --> 00:01:20,070
+use it to solve a challenging
+tracking scenario.
+
+26
+00:01:21,370 --> 00:01:23,340
+&gt;&gt; Let's get started and
+see how the UCAP works.

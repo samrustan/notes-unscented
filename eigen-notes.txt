@@ -1,0 +1,76 @@
+cheatsheet using the common operations required for this project and quizzes
+
+#### Initialization
+
+VectorXd x = VectorXd::Zero(5); // vector of length 5 with zeros
+
+MatrixXd x = MatrixXd::Zero(5, 5); // Matrix of size 5x5 with zeros
+
+MatrixXd x = MatrixXd::Identity(2,2) // identity matrix
+
+#### Slicing
+
+// 1. Set vector y as n elements of vector x.
+
+// where n is the number of elements from x, and y is an input vector of that size.
+
+// first n elements
+x.head(n) = y; 
+
+// last n elements
+x.tail(n) = y;
+
+// elements from pos:pos + n -1
+x.segment(pos, n) = y;
+
+// 2. Set column or row i of matrix x with vector y
+
+x.col(i) = y;
+
+x.row(i) = y;
+
+
+// 3. Set corners of matrix with another matrix
+
+// y is of size (n, n) and x has rows & columns greater than n
+
+x.topLeftCorner(n, n) = y;
+
+x.bottomRightCorner(n, n) = y;
+
+x.bottomLeftCorner(n, n) = y;
+
+x.topRightCorner(n, n) = y;
+
+// 4. Set rows or columns of a matrix with another matrix
+
+x.topRows(rows) = y;
+x.bottomRows(rows) = y;
+x.leftCols(cols) = y;
+x.rightCols(cols) = y;
+
+// 5. Set a sub matrix with another matrix
+
+// the rows x cols sub-matrix starting from position (i,j)
+mat1.block(i,j,rows,cols) = mat2
+
+#### Arithmetic Operators
+
+// 1. Square Root of Matrix
+
+MatrixXd A = P.llt().matrixL(); // A is the square root of P i.e. A.transpose()*A = P
+
+// 2. Matrix-Vector products
+
+col2 = mat1 * col1;
+row2 = row1 * mat1;  
+row1 *= mat1;
+mat3 = mat1 * mat2;
+
+// 3. Transpose
+
+mat1 = mat2.transpose();
+
+// 4. Dot product
+
+scalar = vec1.dot(vec2);

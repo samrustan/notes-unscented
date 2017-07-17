@@ -1,0 +1,313 @@
+1
+00:00:00,480 --> 00:00:04,430
+We start at the beginning of the UKF
+processing chain, which means
+
+2
+00:00:04,430 --> 00:00:08,280
+we are on the prediction step, and
+we want to generate sigma points.
+
+3
+00:00:08,280 --> 00:00:14,300
+At the beginning of the prediction step,
+we have the posterior state xkk and
+
+4
+00:00:14,300 --> 00:00:19,350
+the posterior covariance matrix
+Pkk from the last iteration.
+
+5
+00:00:20,420 --> 00:00:23,720
+They represent the distribution
+of our current state.
+
+6
+00:00:23,720 --> 00:00:27,820
+And for this distribution we now
+want to generate sigma points.
+
+7
+00:00:27,820 --> 00:00:30,883
+The number of sigma points
+depends on the state dimension.
+
+8
+00:00:30,883 --> 00:00:35,404
+Remember this is the state
+vector of the CTRV model so
+
+9
+00:00:35,404 --> 00:00:38,709
+the dimension of our state is nx = 5.
+
+10
+00:00:38,709 --> 00:00:43,420
+We will choose 2nx + 1 sigma points.
+
+11
+00:00:43,420 --> 00:00:46,720
+The first point is
+the mean of the state.
+
+12
+00:00:46,720 --> 00:00:50,410
+And then we have another two
+points per state dimension,
+
+13
+00:00:50,410 --> 00:00:53,160
+which will be spread in
+different directions.
+
+14
+00:00:53,160 --> 00:00:56,510
+In our case,
+this would be 11 sigma points.
+
+15
+00:00:56,510 --> 00:01:01,010
+To make things easier right now, we
+will consider only two dimensions of our
+
+16
+00:01:01,010 --> 00:01:06,100
+state vector, the position Px,
+and the position Py.
+
+17
+00:01:06,100 --> 00:01:08,610
+This makes it easier to
+visualize what's happening.
+
+18
+00:01:08,610 --> 00:01:14,470
+Now that our state dimension is two, we
+are only looking for five sigma points.
+
+19
+00:01:14,470 --> 00:01:18,150
+Together with you, I want to
+calculate these five sigma points and
+
+20
+00:01:18,150 --> 00:01:22,800
+store them in this matrix,
+which I write as calligraphic X.
+
+21
+00:01:22,800 --> 00:01:26,780
+Every column of this matrix
+represents one sigma point.
+
+22
+00:01:26,780 --> 00:01:28,480
+Let's bring this example to life and
+
+23
+00:01:28,480 --> 00:01:32,990
+put some realistic values into the mean
+state and the covariance matrix.
+
+24
+00:01:32,990 --> 00:01:36,130
+Just as you will have it later
+in the real application.
+
+25
+00:01:36,130 --> 00:01:39,750
+Now if you Google for
+Unscented Kalman filter and look for
+
+26
+00:01:39,750 --> 00:01:43,910
+a rule how to generate sigma points,
+this is what you will find.
+
+27
+00:01:45,380 --> 00:01:46,800
+This looks awful.
+
+28
+00:01:47,850 --> 00:01:52,070
+Maybe this is why people don't use
+the Unscented Kalman filter more often.
+
+29
+00:01:52,070 --> 00:01:56,930
+The good news is, this rule is
+actually pretty simple to apply.
+
+30
+00:01:56,930 --> 00:02:00,710
+The first thing you need to
+know is what this lambda is,
+
+31
+00:02:00,710 --> 00:02:02,730
+this is a design parameter.
+
+32
+00:02:02,730 --> 00:02:05,520
+You can choose where in
+relation to the arrow
+
+33
+00:02:05,520 --> 00:02:08,180
+ellipses you want to
+put your sigma points.
+
+34
+00:02:08,180 --> 00:02:11,000
+I will show you, later,
+how this effect works.
+
+35
+00:02:11,000 --> 00:02:17,670
+Some people report good
+results with lambda = 3- nx.
+
+36
+00:02:17,670 --> 00:02:22,965
+Another thing you might be wondering
+is what is the square root of a matrix?
+
+37
+00:02:22,965 --> 00:02:26,398
+More specifically, we are looking for
+
+38
+00:02:26,398 --> 00:02:31,088
+the matrix A which fulfills
+A transposed times A = P.
+
+39
+00:02:31,088 --> 00:02:35,120
+There are several algorithms available
+that will calculate such a matrix.
+
+40
+00:02:35,120 --> 00:02:37,627
+Later, I will show you
+how to do this in C++.
+
+41
+00:02:37,627 --> 00:02:41,710
+But here, I'll give you the solution for
+the square root matrix so
+
+42
+00:02:41,710 --> 00:02:42,900
+we can continue.
+
+43
+00:02:42,900 --> 00:02:46,490
+And this is actually all we need
+to calculate the sigma points.
+
+44
+00:02:46,490 --> 00:02:49,250
+So how do we read this rule?
+
+45
+00:02:49,250 --> 00:02:53,110
+The first column of the matrix tells
+us what the first sigma point is.
+
+46
+00:02:53,110 --> 00:02:55,020
+And this is always easy,
+
+47
+00:02:55,020 --> 00:02:59,510
+because the first sigma point is
+simply the mean state estimate.
+
+48
+00:02:59,510 --> 00:03:02,670
+This term contains two
+more sigma points.
+
+49
+00:03:02,670 --> 00:03:06,490
+In the square root matrix,
+we have two vectors.
+
+50
+00:03:06,490 --> 00:03:09,745
+The first vector points
+into this direction, and
+
+51
+00:03:09,745 --> 00:03:12,776
+the other vector points
+into this direction.
+
+52
+00:03:12,776 --> 00:03:17,049
+And we multiply these vectors
+by this printing factor.
+
+53
+00:03:17,049 --> 00:03:21,100
+Now, you can see what the design
+parameter lambda does.
+
+54
+00:03:21,100 --> 00:03:26,370
+If lambda is larger, the sigma points
+move further away from the mean state.
+
+55
+00:03:26,370 --> 00:03:30,710
+If lambda is smaller, the sigma
+points move closer to the mean state.
+
+56
+00:03:30,710 --> 00:03:34,140
+This all happens in relation
+to this arrow ellipse.
+
+57
+00:03:34,140 --> 00:03:37,070
+In our case, the resulting
+sigma points will end up here.
+
+58
+00:03:38,110 --> 00:03:43,143
+In our example, the overall spreading
+factor works out to square root of 3.
+
+59
+00:03:43,143 --> 00:03:47,367
+So we multiply this vector and
+this vector by
+
+60
+00:03:47,367 --> 00:03:52,288
+the square root of 3, and
+add it to the mean state.
+
+61
+00:03:52,288 --> 00:03:55,627
+Finally, here we use
+the same vectors again, but
+
+62
+00:03:55,627 --> 00:03:58,420
+we apply them in the opposite direction.
+
+63
+00:03:59,460 --> 00:04:07,650
+This means that these sigma points
+will show up here, and here.
+
+64
+00:04:07,650 --> 00:04:11,990
+In the next quiz I would like you to
+calculate the two remaining sigma points
+
+65
+00:04:11,990 --> 00:04:12,860
+from our example.

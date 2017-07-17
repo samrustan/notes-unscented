@@ -1,0 +1,33 @@
+1
+00:00:00,710 --> 00:00:04,380
+In this quiz, we have two
+objects we want to calculate.
+
+2
+00:00:04,380 --> 00:00:08,170
+The mean predicted state X and
+the state prediction covariance P.
+
+3
+00:00:09,340 --> 00:00:13,420
+This time we started the point but we
+already have the predicted sigma points.
+
+4
+00:00:14,520 --> 00:00:18,390
+This is a vector where you can put
+them the weights for the sigma points.
+
+5
+00:00:18,390 --> 00:00:21,620
+This is the vector for
+the predicted state mean and
+
+6
+00:00:21,620 --> 00:00:24,960
+this is the metrics for
+the state prediction conversions.
+
+7
+00:00:24,960 --> 00:00:25,910
+Good luck with this quiz.
